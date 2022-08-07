@@ -1,0 +1,36 @@
+.homepage {
+padding: 55px 100px 0 100px;    
+justify-content: center;
+align-items: center;
+height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+}
+.home__bg {
+    background-image: url(../assets/banner.png);
+    height: 557px;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.text-column h1 {
+    color: rgb(55, 55, 55)
+}
+.text-column p {
+    color: #525f75
+}
+
+.home-message-icon {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.footer {
+    padding-top: 30px;
+    align-items: center;
+    justify-content: center;   
+    display: flex;
+}

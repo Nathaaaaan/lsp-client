@@ -1,0 +1,113 @@
+
+    .onboarding {
+        border-top: solid 1px rgb(213,213,213);
+      }
+  
+      .onboarding form {
+        display: flex;
+        justify-content: center;
+      }
+  
+      .onboarding form section {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        width: 50%;
+        text-align: start;
+      }
+  
+      .onboarding form input {
+        padding: 13px;
+        margin: 0 0;
+        font-size: 15px;
+        border: solid 2px rgb(219,219,219);
+        border-radius: 3px;
+      }
+  
+      .onboarding form input::-webkit-outer-spin-button,
+      .onboarding form input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+  
+      .onboarding form label {
+        margin: 10px 0;
+      }
+  
+      .onboarding form .multiple-input-container {
+        display: flex;
+        flex-direction: row;
+      }
+  
+      .onboarding form .multiple-input-container input {
+        margin-right: 10px;
+      }
+  
+      .onboarding form .multiple-input-container label {
+        padding: 10px;
+        border: solid 2px rgb(144,144,144);
+        border-radius: 3px;
+        transition: all 0.3s;
+        margin-right: 5px;
+      }
+  
+      .onboarding form input[type="radio"], 
+      .onboarding form input[type="checkbox"] {
+        display: none;
+      }
+  
+      .onboarding form input[type="number"] {
+        width:15%;
+      }
+  
+      .onboarding form input[type="radio"]:checked + label {
+        border: solid 2px rgb(71, 23, 245);
+      }
+      .onboarding form input[type="checkbox"]:checked + label {
+        border: solid 2px rgb(71, 23, 245);
+      }
+  
+      .onboarding form button[type="submit"] {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: none;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+        background-color: rgb(85, 85, 85);
+        justify-content: center;
+  
+      }
+  
+      .onboarding form button[type="submit"]:hover {
+        background-color: rgb(96, 63, 230);
+      }
+      
+      .onboarding form button[type="submit"]:active {
+        background-color: rgb(65, 22, 239);
+      }
+      
+  
+      .onboarding form .submit-btn {
+        font-size: 80px;
+        color: white;
+      }
+  
+      .onboarding form .photo-container img {
+        width: 30%;
+      }
+
+      .onboarding h2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+      }
+
+      .onboarding  .img-text-info{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
