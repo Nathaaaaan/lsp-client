@@ -4,33 +4,36 @@ import axios from "../axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function LanguagesAdminPage() {
-  const [newLanguage, setNewLanguage] = useState('')
-  const [newFlagCode, setNewFlagCode] = useState('')
 
-  const [languages, setLanguages] = useState(null);
+function CoursesAdminPage() {
+  const [newCourse, setNewCourse] = useState('')
+  const [newTime, setNewTime] = useState('')
+
+  const [courses, setCourses] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const user = useSelector((state) => state.user);
 
-  const handleCloseAddLanguage = () => setShowAdd(false);
-  const handleAddLanguage = () => setShowAdd(true);
-  const handleCloseEditLanguage = () => setShowEdit(false);
+  const handleCloseAddCourse = () => setShowAdd(false);
+  const handleAddCourse = () => setShowAdd(true);
+  const handleCloseEditCourse = () => setShowEdit(false);
   
   const [formData, setFormData] = useState({
     _id: "",
-    name: "",
-    flag_code: "",
+    course_name: "",
+    time: "",
   });
   console.log(formData);
 
-  async function getLanguages() {
+  async function getCourses() {
     try {
-      const response = await axios.get("/rooms");
+      const response = await axios.get("/courses");
       setLoading(false);
-      setLanguages(response.data);
+      setCourses(response.data);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -40,12 +43,12 @@ function LanguagesAdminPage() {
   async function handleAddSubmit(e) {
     e.preventDefault()
     try {
-      const response = await axios.post("/addlanguage", {newLanguage, newFlagCode});
+      const response = await axios.post("/addcourse", {newCourse, newTime});
       setLoading(false);
       const success = response.status === 200
       if(success) {
-      handleCloseAddLanguage()
-      getLanguages();
+      handleCloseAddCourse()
+      getCourses();
     }
     } catch (e) {
       setLoading(false);
@@ -53,13 +56,13 @@ function LanguagesAdminPage() {
     }
   }
 
-  const handleEditLanguage = (_id, name, flag_code) => {
+  const handleEditCourse = (_id, name, time) => {
     setShowEdit(true)
     setFormData((prevState) => ({
       ...prevState,
       _id: _id,
-      name: name,
-      flag_code: flag_code,
+      course_name: name,
+      time: time,
     }));
   } 
 
@@ -75,12 +78,13 @@ function LanguagesAdminPage() {
   async function handleEditSubmit(e) {
     e.preventDefault()
     try {
-      const response = await axios.patch("/editlanguage", {formData});
+      const response = await axios.patch("/editcourse", {formData});
       const success = response.status === 200
       setLoading(false);
       if(success) {
-        handleCloseEditLanguage()
-        getLanguages();
+        handleCloseEditCourse()
+        getCourses();
+       
       }
 
     } catch (e) {
@@ -90,16 +94,16 @@ function LanguagesAdminPage() {
   }
   
   
-  async function handleDeleteLanguage(id) {
+  async function handleDeleteCourse(id) {
     if (window.confirm("Are you sure?")) 
     try {
-      const response = await axios.delete("/deletelanguage", {
+      const response = await axios.delete("/deletecourse", {
         data: { _id: id}
     });
       setLoading(false);
       const success = response.status === 200
       if(success) {
-        getLanguages();
+        getCourses();
       }
 
     } catch (error) {
@@ -111,7 +115,7 @@ function LanguagesAdminPage() {
 
   useEffect(() => {
     setLoading(true);
-    getLanguages();
+    getCourses();
   }, []);
 
   if (loading) return <Loading />;
@@ -119,49 +123,47 @@ function LanguagesAdminPage() {
 
   return (
     <div className="content-wrapper">
-      <Button variant="primary" onClick={handleAddLanguage} className="mb-2">
-        Add Language
+      <Button variant="primary" onClick={handleAddCourse} className="mb-2">
+        Tambah Kursus
       </Button>
 
-      {/* Add Language */}
-      <Modal show={showAdd} onHide={handleCloseAddLanguage}>
+      {/* Add Course */}
+      <Modal show={showAdd} onHide={handleCloseAddCourse}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Language</Modal.Title>
+          <Modal.Title>Tambah Kursus Baru</Modal.Title>
         </Modal.Header>
 
         <Form onSubmit={handleAddSubmit}>
           <Modal.Body>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Language Name</Form.Label>
+              <Form.Label>Nama Kursus</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="For example: Indonesian"
+                placeholder="Contoh: Web Programming"
                 autoFocus
                 className="mb-2"
                 name="name"
-                onChange={(e) => setNewLanguage(e.target.value)} 
-                value={newLanguage} 
+                onChange={(e) => setNewCourse(e.target.value)} 
+                value={newCourse} 
                 required={true}
               />
-              <Form.Label>Flag Code</Form.Label>
+              <Form.Label>Waktu Kursus</Form.Label>
               <div style={{ fontSize: "11px", marginBottom: "5px" }}>
-                Please refer to{" "}
-                <a href="https://flagicons.lipis.dev/">this website</a> to see
-                the code of the flag.
+                Format: Hari, Tanggal Bulan Tahun
               </div>
               <Form.Control
                 type="text"
-                placeholder="For example: en / id / gb"
+                placeholder="Contoh: Minggu, 21 Agustus 2022"
                 autoFocus
                 name="flag_code"
-                onChange={(e) => setNewFlagCode(e.target.value)} 
-                value={newFlagCode} 
+                onChange={(e) => setNewTime(e.target.value)} 
+                value={newTime} 
                 required={true}
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseAddLanguage}>
+            <Button variant="secondary" onClick={handleCloseAddCourse}>
               Close
             </Button>
             <Button variant="primary" type="submit">
@@ -171,45 +173,43 @@ function LanguagesAdminPage() {
         </Form>
       </Modal>
 
-      {/* Edit Language */}
-      <Modal show={showEdit} onHide={handleCloseEditLanguage}>
+      {/* Edit Course */}
+      <Modal show={showEdit} onHide={handleCloseEditCourse}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Existing Language</Modal.Title>
+          <Modal.Title>Edit Kursus</Modal.Title>
         </Modal.Header>
 
         <Form onSubmit={handleEditSubmit}>
           <Modal.Body>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Language Name</Form.Label>
+              <Form.Label>Nama Kursus</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="For example: Indonesian"
+                placeholder="Contoh: Desktop Programming"
                 autoFocus
                 className="mb-2"
-                name="name"
+                name="course_name"
                 onChange={handleEditChange} 
-                value={formData.name} 
+                value={formData.course_name} 
                 required={true}
               />
-              <Form.Label>Flag Code</Form.Label>
+              <Form.Label>Waktu Kursus</Form.Label>
               <div style={{ fontSize: "11px", marginBottom: "5px" }}>
-                Please refer to{" "}
-                <a href="https://flagicons.lipis.dev/">this website</a> to see
-                the code of the flag.
+              Format: Hari, Tanggal Bulan Tahun
               </div>
               <Form.Control
                 type="text"
-                placeholder="For example: en / id / gb"
+                placeholder="Contoh: Minggu, 21 Agustus 2022"
                 autoFocus
-                name="flag_code"
+                name="time"
                 onChange={handleEditChange} 
-                value={formData.flag_code} 
+                value={formData.time} 
                 required={true}
               />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseAddLanguage}>
+            <Button variant="secondary" onClick={handleCloseEditCourse}>
               Close
             </Button>
             <Button variant="primary" type="submit">
@@ -223,31 +223,29 @@ function LanguagesAdminPage() {
         <thead>
           <tr>
             <th style={{ width: "70px" }}>No</th>
-            <th>ID</th>
-            <th>Language</th>
-            <th>Flag Code</th>
-            <th style={{ width: "155px" }}>Action</th>
+            <th>Nama Kursus</th>
+            <th>Jadwal Kursus</th>
+            <th style={{ width: "155px" }}>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          {languages &&
-            languages.map((language, i) => (
+          {courses &&
+            courses.map((course, i) => (
               <tr>
                 <td>{i + 1}</td>
-                <td>{language._id}</td>
-                <td>{language.name}</td>
-                <td>{language.flag_code}</td>
+                <td>{course.course_name}</td>
+                <td>{course.time}</td>
                 <td style={{ justifyContent: "space-evenly", display: "flex" }}>
                   <Button
                     variant="warning"
-                    onClick={() => handleEditLanguage(language._id, language.name, language.flag_code)}
+                    onClick={() => handleEditCourse(course._id, course.course_name, course.time)}
                     
                   >
                     Edit
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => handleDeleteLanguage(language._id)}
+                    onClick={() => handleDeleteCourse(course._id)}
                   >
                     Delete
                   </Button>
@@ -256,8 +254,18 @@ function LanguagesAdminPage() {
             ))}
         </tbody>
       </Table>
+      <ToastContainer
+                  position="top-center"
+                  autoClose={2000}
+                  hideProgressBar={true}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  draggable
+                  pauseOnHover
+                />
     </div>
   );
 }
 
-export default LanguagesAdminPage;
+export default CoursesAdminPage;

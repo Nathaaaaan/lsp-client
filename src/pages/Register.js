@@ -7,6 +7,8 @@ import {Form} from 'react-bootstrap'
 import "./Register.css";
 import { ToastContainer, toast } from "react-toastify";
 import botImg from '../assets/bot.png';
+import axios from "../axios";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,8 +19,12 @@ function Register() {
   const [updateUser, { isLoading, error }] = useUpdateUserMutation();
   // setImage
   const [image, setImage] = useState(null);
+  const [courses, setCourses] = useState(null);
   const [uploadingImg, setUploadingImg] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+
+
+ 
 
   function validateImg(e) {
     const file = e.target.files[0];
@@ -92,6 +98,7 @@ function Register() {
 
   useEffect(() => {
     getUser();
+    getCourses()
   }, []);
 
   let navigate = useNavigate();
@@ -154,6 +161,15 @@ function Register() {
   //     });
   //   }
   // }
+
+  async function getCourses() {
+    try {
+      const response = await axios.get("/courses");
+      setCourses(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   console.log(formData);
 
@@ -319,6 +335,7 @@ function Register() {
 
             <label>Jenis Kursus*</label>
             <div className="multiple-input-container">
+    
               <input
                 id="web"
                 type="radio"
@@ -328,6 +345,7 @@ function Register() {
                 checked={formData.course === "Web Programming"}
               />
               <label htmlFor="web">Web Programming</label>
+
               <input
                 id="mobile"
                 type="radio"
@@ -348,6 +366,8 @@ function Register() {
               <label htmlFor="desktop">Desktop Programming</label>
               
             </div>
+
+           
 
             <div className="arrow-submit">
               <button type="submit">

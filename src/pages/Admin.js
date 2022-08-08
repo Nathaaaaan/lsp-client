@@ -3,7 +3,7 @@ import {Container, Tab, Row, Col, Nav} from 'react-bootstrap'
 import './Admin.css'
 import MembersAdminPage from "../components/MembersAdminPage"
 import DashboardAdminPage from "../components/DashboardAdminPage"
-import LanguagesAdminPage from "../components/LanguagesAdminPage"
+import CoursesAdminPage from "../components/CoursesAdminPage"
 
 
 function Admin() {
@@ -17,10 +17,10 @@ function Admin() {
                     <Nav.Link eventKey="dashboard">Dashboard</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="members">Members</Nav.Link>
+                    <Nav.Link eventKey="members">Data User</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="languages">Languages</Nav.Link>
+                    <Nav.Link eventKey="languages">Data Kursus</Nav.Link>
                 </Nav.Item>
                 
             </Nav>
@@ -34,7 +34,7 @@ function Admin() {
                     <MembersAdminPage />
                 </Tab.Pane>
                 <Tab.Pane eventKey="languages">
-                    <LanguagesAdminPage />
+                    <CoursesAdminPage />
                 </Tab.Pane>
                 </Tab.Content>
             </Col>

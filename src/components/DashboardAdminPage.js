@@ -4,7 +4,7 @@ import Loading from "./Loading";
 
 function DashboardAdminPage() {
     const[users, setUsers] = useState(null)
-    const [languages, setLanguages] = useState(null);
+    const [courses, setCourses] = useState(null);
     const[loading, setLoading] = useState(false)
 
   async function getRegisteredMembers() {
@@ -20,9 +20,9 @@ function DashboardAdminPage() {
 
   async function getLanguages() {
     try {
-      const response = await axios.get("/rooms");
+      const response = await axios.get("/courses");
       setLoading(false);
-      setLanguages(response.data);
+      setCourses(response.data);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -48,7 +48,7 @@ return (
     <div className="card-body">
       <div className="row no-gutters align-items-center">
         <div className="col mr-2">
-          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Members</div>
+          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">JUMLAH USER</div>
           <div className="h5 mb-0 font-weight-bold text-gray-800">{users?.length}</div>
         </div>
         <div className="col-auto">
@@ -64,8 +64,8 @@ return (
     <div className="card-body">
       <div className="row no-gutters align-items-center">
         <div className="col mr-2">
-          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Languages</div>
-          <div className="h5 mb-0 font-weight-bold text-gray-800">{languages?.length}</div>
+          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">JUMLAH KURSUS</div>
+          <div className="h5 mb-0 font-weight-bold text-gray-800">{courses?.length}</div>
         </div>
         <div className="col-auto">
         <i className="fa-solid fa-globe fa-2x text-gray-300"></i>

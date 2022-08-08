@@ -16,14 +16,13 @@ function Home() {
         <h1>Website Pendaftaran Kursus</h1>
         <LinkContainer to={"/register"}>
           <Button variant="secondary">
-             Daftar Sekarang<i className='fas fa-comments home-message-icon'></i>
+             {user ? "Daftar Sekarang" : "Sign Up"}<i className='fas fa-comments home-message-icon'></i>
             </Button>
         </LinkContainer>
       </div>
     </Col>
     <Col md={6} className="home__bg"></Col>
   </Row>
-  {/* <div className='footer'>Copyright® 2022 Unitive</div> */}
   </div>
   )
     
